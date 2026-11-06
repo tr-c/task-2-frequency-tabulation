@@ -1,0 +1,33 @@
+_ > nanoagent.plugin.v0001.ManifestConfig:
+id: frequency-tabulation
+name: Frequency Tabulation
+version: 0.1.0
+status: in-development
+spec: nanoagent.plugin/v0001
+
+runtime > nanoagent.plugin.v0001.RuntimeConfig:
+  type: mcp_stdio
+  command: [uv, run, --frozen, python, -m, plugin]
+
+permissions > nanoagent.plugin.v0001.PermissionsConfig:
+  network > nanoagent.plugin.v0001.NetworkConfig:
+    hosts: []
+  filesystem > nanoagent.plugin.v0001.FilesystemConfig:
+    write: [workspace]
+
+# one entry per contract.Tool; input/output classes come from contract.TOOLS
+tools > dict[contract.Tool, nanoagent.plugin.v0001.ToolConfig]:
+  count_occurrences:
+    description: Read a text file from the workspace and return the total number of times a target substring appears in it
+
+# one entry per contract.Task; input/output classes come from contract.TASKS
+tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
+  frequency-tabulation:
+    description: Count exact occurrences of a target syntactic variable across a sociolinguistic text dataset
+    runner: tool
+    tools: [count_occurrences]
+    reference: null
+    instructions: |-
+      Call count_occurrences with file_path set to "aave_sample.txt" and target set to the string
+      provided in the task input. Count how many times the target appears as an exact substring anywhere
+      in the entire file (not per line). Return the total as a single integer in the count field.

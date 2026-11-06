@@ -1,0 +1,16 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: "Count every dialect marker in a corpus — exactly, deterministically."
+summary: >-
+  Frequency Tabulation is Task 2 of the Autono-Linguist evaluation suite.
+  Given a raw social media text file and a target syntactic variable
+  (such as the AAVE habitual "be"), the agent counts the total number of
+  exact substring occurrences across the entire file and returns a single
+  integer. The verifier recomputes the ground-truth count with Python's
+  str.count and accepts no approximations.
+highlights:
+  - "Deterministic verifier: str.count ground truth, no LLM judge"
+  - "Bundled AAVE fixture file with 9 habitual 'be' occurrences"
+  - "Tests correct, incorrect, missing, malformed, and boundary cases"
+steps:
+  - "Provide the file path and your target substring (e.g. 'be')"
+  - "The agent scans the entire file and returns the exact integer count"
